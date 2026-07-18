@@ -1,0 +1,25 @@
+# Borrowing and Availability
+
+## Overview
+
+The borrowing process allows students to request books from the library. The system checks the availability of the selected book before processing the request.
+
+## Borrowing Process
+
+1. The student logs into the ServiceNow application.
+2. The student views the list of available books.
+3. The student selects a book and submits a borrowing request.
+4. The request status is set to **Pending**.
+5. The librarian reviews the request.
+6. If the request is approved, the book is issued to the student.
+
+## Book Availability
+
+- When a request is approved, the book status changes from **Available** to **Issued**.
+- The total available copies are updated automatically.
+- When the student returns the book, the status changes back to **Available**.
+- The available copies are updated again after the return.
+
+## Result
+
+This process ensures that book borrowing and availability are managed automatically without manual effort.
