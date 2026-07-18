@@ -2,14 +2,6 @@
 
 A premium, fully client-side Library Management System demonstration showcasing relational state synchronization, access control lists (ACLs), automated request lifecycles, and visual analytics reports.
 
-## Architecture & Layout
-
-The project is structured into four main files inside the `library-system` directory:
-1. **[index.html](file:///C:/Users/new/.gemini/antigravity/scratch/library-system/index.html)**: Semantic layout, dashboard containers, modals, security inspector logs, and the testing dashboard.
-2. **[styles.css](file:///C:/Users/new/.gemini/antigravity/scratch/library-system/styles.css)**: Obsidian glassmorphic design system using CSS variables, custom grid layouts, dynamic hover animations, and color tokens for role status badges.
-3. **[app.js](file:///C:/Users/new/.gemini/antigravity/scratch/library-system/app.js)**: Holds the local database engine (syncs to `localStorage`), active state, ACL checker engine (`checkPermission()`), and transaction workflow processors (Request $\rightarrow$ Approve $\rightarrow$ Return).
-4. **[test_suite.js](file:///C:/Users/new/.gemini/antigravity/scratch/library-system/test_suite.js)**: Runs in-browser automated verification tests testing permissions, invalid actions, and state transitions.
-
 ## Key Features
 
 ### 1. Multi-Role Context & Switcher
@@ -42,7 +34,7 @@ Locate the `index.html` file on your filesystem and open it in any web browser:
 ### Option B: Run a Local Dev Server
 If you have node installed, you can serve the directory:
 ```bash
-cd C:\Users\new\.gemini\antigravity\scratch\library-system
+
 npx http-server .
 ```
 Or if you have Python:
