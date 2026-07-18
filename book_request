@@ -1,0 +1,24 @@
+# Accept and Reject Process
+
+## Overview
+
+The librarian is responsible for reviewing every book request submitted by students.
+
+## Approval Process
+
+1. A student submits a book request.
+2. The request status becomes **Pending**.
+3. The librarian reviews the request.
+4. If the book is available, the librarian approves the request.
+5. The request status changes to **Approved**.
+6. The book is issued to the student automatically.
+
+## Rejection Process
+
+1. If the requested book is unavailable or cannot be issued, the librarian rejects the request.
+2. The request status changes to **Rejected**.
+3. The book remains available for future requests if it was not issued.
+
+## Outcome
+
+The approval and rejection process helps librarians manage book requests efficiently while maintaining accurate request records and book availability.
