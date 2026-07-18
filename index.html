@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A premium Library Management System demonstration showcasing Access Control Lists (ACLs), stateful workflows, and analytics reports.">
+  <title>Aether Library System - Dashboard</title>
+  <!-- Google Fonts: Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- App Container -->
+  <div class="app-container">
+    
+    <!-- Sidebar / Brand Header -->
+    <aside class="app-sidebar">
+      <div class="brand">
+        <div class="brand-logo">Æ</div>
+        <div class="brand-text">
+          <h1>Aether</h1>
+          <span>Library System</span>
+        </div>
+      </div>
+
+      <div class="user-profile-widget">
+        <div class="avatar" id="user-avatar">👤</div>
+        <div class="profile-info">
+          <h4 id="user-name">Alex Mercer</h4>
+          <span id="user-badge" class="badge badge-student">Student Role</span>
+        </div>
+      </div>
+
+      <!-- Navigation Links -->
+      <nav class="app-nav">
+        <div class="nav-section-title">Views</div>
+        <button class="nav-btn active" id="btn-view-catalog" data-view="catalog">
+          <span class="icon">📚</span> Book Catalog
+        </button>
+        <button class="nav-btn" id="btn-view-requests" data-view="requests">
+          <span class="icon">📥</span> My Borrowings
+        </button>
+        
+        <div class="nav-section-title librarian-only">Management</div>
+        <button class="nav-btn librarian-only" id="btn-view-admin-requests" data-view="admin-requests">
+          <span class="icon">🔔</span> Pending Approvals <span class="counter-badge" id="requests-count">0</span>
+        </button>
+        <button class="nav-btn librarian-only" id="btn-view-manage-catalog" data-view="manage-catalog">
+          <span class="icon">⚙️</span> Manage Inventory
+        </button>
+        <button class="nav-btn librarian-only" id="btn-view-reports" data-view="reports">
+          <span class="icon">📊</span> Reports & Insights
+        </button>
+      </nav>
+
+      <!-- Role Switcher Panel -->
+      <div class="role-switcher-card">
+        <h3>System Role Context</h3>
+        <p>Toggle role to test ACL controls and workflow visibility rules in real-time.</p>
+        <div class="role-toggles">
+          <button class="role-toggle-btn active" id="toggle-student">Student</button>
+          <button class="role-toggle-btn" id="toggle-librarian">Librarian</button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="app-main">
+      
+      <!-- Top Bar -->
+      <header class="app-header">
+        <div class="welcome-msg">
+          <h2 id="view-title">Book Catalog</h2>
+          <p id="view-desc">Explore and request available books from the digital shelves.</p>
+        </div>
+        
+        <!-- Live Stat Cards -->
+        <div class="quick-stats">
+          <div class="stat-card">
+            <span class="stat-icon">📖</span>
+            <div class="stat-info">
+              <span class="stat-value" id="stat-total-books">0</span>
+              <span class="stat-label">Total Books</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <span class="stat-icon">🏷️</span>
+            <div class="stat-info">
+              <span class="stat-value" id="stat-available-books">0</span>
+              <span class="stat-label">Available</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <span class="stat-icon">🔄</span>
+            <div class="stat-info">
+              <span class="stat-value" id="stat-active-borrows">0</span>
+              <span class="stat-label">Borrowed</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- View Containers -->
+      <section class="content-body">
+        
+        <!-- View: Book Catalog (Student & Librarian) -->
+        <div class="view-panel active" id="view-catalog">
+          <div class="filter-bar">
+            <div class="search-box">
+              <span class="search-icon">🔍</span>
+              <input type="text" id="catalog-search" placeholder="Search by title, author, isbn or category...">
+            </div>
+            <div class="filter-select">
+              <select id="catalog-category-filter">
+                <option value="all">All Categories</option>
+                <option value="Computer Science">Computer Science</option>
+                <option value="Fiction">Fiction</option>
+                <option value="Biography">Biography</option>
+                <option value="Science">Science</option>
+              </select>
+            </div>
+          </div>
+          <div class="books-grid" id="books-grid-container">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+
+        <!-- View: Student Requests/Borrowings (Student Only) -->
+        <div class="view-panel" id="view-requests">
+          <div class="card">
+            <div class="card-header">
+              <h3>My Borrowing Transactions</h3>
+              <p>Track statuses, approval actions, and active borrowing deadlines.</p>
+            </div>
+            <div class="table-container">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Request ID</th>
+                    <th>Book Details</th>
+                    <th>Request Date</th>
+                    <th>Status</th>
+                    <th>Action/Due Date</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="student-requests-body">
+                  <!-- Dynamically populated -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- View: Librarian Approvals (Librarian Only) -->
+        <div class="view-panel" id="view-admin-requests">
+          <div class="card">
+            <div class="card-header">
+              <h3>Pending Borrow Requests</h3>
+              <p>Review and action pending requests from students. Approvals update book inventory availability.</p>
+            </div>
+            <div class="table-container">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Request ID</th>
+                    <th>Requester</th>
+                    <th>Book</th>
+                    <th>Request Date</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="librarian-requests-body">
+                  <!-- Dynamically populated -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- View: Manage Catalog CRUD (Librarian Only) -->
+        <div class="view-panel" id="view-manage-catalog">
+          <div class="card-action-bar">
+            <button class="btn btn-primary" id="btn-open-add-book-modal">➕ Add New Book</button>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <h3>Library Inventory Management</h3>
+              <p>Create, update, and retire books from the active catalog.</p>
+            </div>
+            <div class="table-container">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Book Title</th>
+                    <th>Author</th>
+                    <th>ISBN</th>
+                    <th>Category</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="catalog-manage-body">
+                  <!-- Dynamically populated -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- View: Reports & Insights (Librarian Only) -->
+        <div class="view-panel" id="view-reports">
+          <div class="reports-grid">
+            <div class="card report-card">
+              <div class="card-header">
+                <h3>Most Borrowed Books</h3>
+                <p>Analytics on reading trends and popular inventory items.</p>
+              </div>
+              <div class="chart-container">
+                <div class="bar-chart" id="most-borrowed-chart">
+                  <!-- Dynamically populated CSS bar chart -->
+                </div>
+              </div>
+            </div>
+
+            <div class="card report-card">
+              <div class="card-header">
+                <h3>System Transaction Analytics</h3>
+                <p>Summary of request behaviors, approval rates, and cycle statuses.</p>
+              </div>
+              <div class="stats-panel-vertical">
+                <div class="stats-row">
+                  <div class="row-label">Total Transactions Logged</div>
+                  <div class="row-val" id="analytics-total-tx">0</div>
+                </div>
+                <div class="stats-row">
+                  <div class="row-label">Approval Rate</div>
+                  <div class="row-val" id="analytics-approval-rate">0%</div>
+                </div>
+                <div class="stats-row">
+                  <div class="row-label">Active Outward Loans</div>
+                  <div class="row-val" id="analytics-active-loans">0</div>
+                </div>
+                <div class="stats-row">
+                  <div class="row-label">Return Completion Rate</div>
+                  <div class="row-val" id="analytics-return-rate">0%</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+    </main>
+
+    <!-- Right Console Inspector Panel -->
+    <section class="app-console">
+      <div class="console-tab-header">
+        <button class="console-tab-btn active" id="tab-btn-logs">Inspector Log</button>
+        <button class="console-tab-btn" id="tab-btn-tests">Automated Tests</button>
+      </div>
+      
+      <!-- Console View: Real-time ACL and Workflow logs -->
+      <div class="console-content active" id="console-logs-panel">
+        <div class="console-bar">
+          <span>Security & Workflow Guard</span>
+          <button class="console-clear-btn" id="btn-clear-logs">Clear Log</button>
+        </div>
+        <div class="log-output" id="log-output-container">
+          <!-- Dynamically filled with ACL checks & Workflow transitions -->
+          <div class="log-line log-system">[SYSTEM] Aether security context initialized.</div>
+        </div>
+      </div>
+
+      <!-- Console View: Interactive Test Suite -->
+      <div class="console-content" id="console-tests-panel">
+        <div class="console-bar">
+          <span>Self-Verification Test Suite</span>
+          <button class="btn btn-sm btn-primary" id="btn-run-tests">Run Tests</button>
+        </div>
+        <div class="test-results-container">
+          <p class="test-suite-intro">Verify state machines, workflow rules, and ACL boundaries automatically.</p>
+          <div class="test-list" id="test-results-list">
+            <!-- Dynamic Test Checklist -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Book Modal (Add / Edit Book) -->
+  <div class="modal" id="book-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modal-title">Add New Book</h3>
+        <button class="modal-close" id="btn-close-modal">&times;</button>
+      </div>
+      <form id="book-form">
+        <input type="hidden" id="edit-book-id">
+        <div class="form-group">
+          <label for="book-title-input">Book Title</label>
+          <input type="text" id="book-title-input" required placeholder="e.g., Designing Data-Intensive Applications">
+        </div>
+        <div class="form-group">
+          <label for="book-author-input">Author</label>
+          <input type="text" id="book-author-input" required placeholder="e.g., Martin Kleppmann">
+        </div>
+        <div class="form-group">
+          <label for="book-isbn-input">ISBN</label>
+          <input type="text" id="book-isbn-input" required placeholder="e.g., 978-1449373320">
+        </div>
+        <div class="form-group">
+          <label for="book-category-input">Category</label>
+          <select id="book-category-input" required>
+            <option value="Computer Science">Computer Science</option>
+            <option value="Fiction">Fiction</option>
+            <option value="Biography">Biography</option>
+            <option value="Science">Science</option>
+          </select>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="btn-cancel-modal">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Book</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- App Core and Tests -->
+  <script src="app.js"></script>
+  <script src="test_suite.js"></script>
+</body>
+</html>
