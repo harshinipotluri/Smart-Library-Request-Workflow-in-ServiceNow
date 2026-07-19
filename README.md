@@ -1,44 +1,155 @@
-# Aether Library System
+# 📚 Smart Library Request Workflow in ServiceNow
 
-A premium, fully client-side Library Management System demonstration showcasing relational state synchronization, access control lists (ACLs), automated request lifecycles, and visual analytics reports.
+## 📖 Project Overview
 
-## Key Features
+The **Smart Library Request Workflow** is a ServiceNow application developed to simplify and automate library management. It allows students to search and request books while enabling librarians to manage books, review requests, and approve or reject them. The application also updates book availability automatically and generates reports for library analysis.
 
-### 1. Multi-Role Context & Switcher
-Swap between the **Student** (Alex Mercer) and **Chief Librarian** roles using the switcher in the left sidebar. Notice how the navigation menu and statistics update instantly based on the active role's clearance.
+---
 
-### 2. Transaction Workflows & State Sync
-- **Requesting a book**: A student requests an available book. A `Pending` request is created.
-- **Approving/Rejecting**: A librarian views the pending request queue, and can approve or reject the request. Approving automatically sets the book status to `Borrowed`, marks a 14-day deadline, and increments the read count.
-- **Returning**: Librarians can click **Return Book** from the inventory manager. This transitions the request state to `Returned` and frees up the book back to `Available`.
+## 🎯 Project Objectives
 
-### 3. Access Control (ACL) Enforcement
-Every action (navigation, workflow triggers, catalog modifications) passes through the `checkPermission()` guard. Unauthorized requests are blocked, and both allowed and blocked operations are logged in real-time in the **Security & Workflow Guard** tab of the right console.
+- Manage library books efficiently.
+- Allow students to request books online.
+- Enable librarians to approve or reject book requests.
+- Automate the borrowing process using Flow Designer.
+- Control access using roles and ACLs.
+- Maintain accurate book availability.
+- Generate reports for library analysis.
 
-### 4. Interactive Reports & Trend Analytics
-Librarians have exclusive access to the **Reports & Insights** panel, which aggregates:
-- **Most Borrowed Books**: A dynamically rendering CSS-grid chart listing the top 5 books.
-- **Transaction stats**: Calculates active loans, approval rates, and return ratios in real-time.
+---
 
-### 5. In-Browser Test Suite
-Open the **Automated Tests** tab in the right console and click **Run Tests** to verify system logic. It performs transactions on isolated test-states and reports passing checks.
+## 👥 User Roles
 
-## How to Run
+### 🎓 Student
+- View available books.
+- Submit book borrowing requests.
+- Check request status.
 
-Since the application uses pure vanilla HTML/CSS/JS with no dependencies, it can be run in two ways:
+### 📚 Librarian
+- Add new books.
+- Update and manage book records.
+- Approve or reject borrowing requests.
+- Monitor book availability.
 
-### Option A: Open Directly in Browser (Easiest)
-Locate the `index.html` file on your filesystem and open it in any web browser:
-`C:\Users\new\.gemini\antigravity\scratch\library-system\index.html`
+---
 
-### Option B: Run a Local Dev Server
-If you have node installed, you can serve the directory:
-```bash
+## 🗂️ Tables Created
 
-npx http-server .
-```
-Or if you have Python:
-```bash
-python -m http.server 8000
-```
-Then open `http://localhost:8000` in your web browser.
+### Library Book
+Stores book information such as:
+- Book ID
+- Title
+- Author
+- Category
+- Availability Status
+- Total Copies
+
+### Book Request
+Stores borrowing request details such as:
+- Requested Book
+- Requested By
+- Request Status
+- Request Date
+- Return Date
+
+---
+
+## 🔐 Access Control (ACL)
+
+### Student Permissions
+- View available books.
+- Create book requests.
+- View their own requests.
+
+### Librarian Permissions
+- Create, update, and manage books.
+- Approve or reject requests.
+- Update book availability.
+
+---
+
+## 🔄 Workflow
+
+The application uses **Flow Designer** to automate the borrowing process.
+
+1. Student submits a book request.
+2. Request status changes to **Pending**.
+3. The request is sent to the librarian.
+4. The librarian approves or rejects the request.
+5. If approved:
+   - Request status changes to **Approved**.
+   - Book availability changes to **Issued**.
+6. If rejected:
+   - Request status changes to **Rejected**.
+
+---
+
+## 📖 Borrowing and Availability
+
+- Students can request available books.
+- Approved requests automatically update the book status.
+- Returned books are marked as **Available**.
+- Book availability is updated automatically.
+
+---
+
+## ✅ Approval Process
+
+- Student submits a request.
+- Librarian reviews the request.
+- Request is approved or rejected.
+- The system automatically updates the request status and book availability.
+
+---
+
+## 📊 Reports Created
+
+The following reports were created:
+
+- Most Borrowed Books
+- Active Book Requests
+
+These reports help librarians analyze library activities.
+
+---
+
+## 🧪 Testing
+
+The application was tested by impersonating different users.
+
+### Student Testing
+- Viewed available books.
+- Submitted book requests.
+
+### Librarian Testing
+- Reviewed requests.
+- Approved and rejected requests.
+- Verified automatic updates.
+
+---
+
+## 🛠️ Technologies Used
+
+- ServiceNow
+- Flow Designer
+- Access Control Rules (ACL)
+- Reports
+- Custom Tables
+
+
+## 📌 Project Outcome
+
+The Smart Library Request Workflow successfully manages library books and borrowing requests through automation. It improves efficiency, reduces manual work, provides secure role-based access, and maintains accurate book availability using ServiceNow.
+
+---
+
+## 👩‍💻 Developed By
+
+Dandu Manasa
+Dunnapothula Ravi Kiran
+Duvvu Rajesh
+Harshini Potluri
+Jonnalagadda Venkat Kiran
+**Department:** B.Tech – Artificial Intelligence & Machine Learning
+
+**Platform:** ServiceNow
