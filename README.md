@@ -145,11 +145,9 @@ The Smart Library Request Workflow successfully manages library books and borrow
 
 ## 👩‍💻 Developed By
 
-Dandu Manasa
-Dunnapothula Ravi Kiran
-Duvvu Rajesh
-Harshini Potluri
-Jonnalagadda Venkat Kiran
-**Department:** B.Tech – Artificial Intelligence & Machine Learning
+- Dandu Manasa
+- Dunnapothula Ravi Kiran
+- Duvvu Rajesh
+- Harshini Potluri
+- Jonnalagadda Venkat Kiran
 
-**Platform:** ServiceNow
