@@ -1,5 +1,13 @@
 # 📚 Smart Library Request Workflow in ServiceNow
 
+## 👩‍💻 Developed By
+
+- Dandu Manasa
+- Dunnapothula Ravi Kiran
+- Duvvu Rajesh
+- Harshini Potluri
+- Jonnalagadda Venkat Kiran
+
 ## 📖 Project Overview
 
 The **Smart Library Request Workflow** is a ServiceNow application developed to simplify and automate library management. It allows students to search and request books while enabling librarians to manage books, review requests, and approve or reject them. The application also updates book availability automatically and generates reports for library analysis.
@@ -142,12 +150,3 @@ The application was tested by impersonating different users.
 The Smart Library Request Workflow successfully manages library books and borrowing requests through automation. It improves efficiency, reduces manual work, provides secure role-based access, and maintains accurate book availability using ServiceNow.
 
 ---
-
-## 👩‍💻 Developed By
-
-- Dandu Manasa
-- Dunnapothula Ravi Kiran
-- Duvvu Rajesh
-- Harshini Potluri
-- Jonnalagadda Venkat Kiran
-
